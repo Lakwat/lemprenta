@@ -20,17 +20,6 @@ body {
     padding: 0 20px;
 }
 
-/* --- General Link Styling (Moved Up) --- */
-a {
-    color: #007bff;
-    text-decoration: none; /* Default for most links, can be overridden */
-}
-
-a:hover {
-    color: #0056b3;
-    text-decoration: underline; /* Common hover effect */
-}
-
 /* Header Styles */
 header {
     background-color: #333;
@@ -55,12 +44,23 @@ header nav a {
 }
 
 /* header nav a:hover will inherit from general 'a:hover' unless overridden */
+
 /* If specific header nav hover is needed, it can be added:
 header nav a:hover {
     text-decoration: underline; // Or other style
 }
 */
 
+/* --- General Link Styling (Moved Up) --- */
+a {
+    color: #007bff;
+    text-decoration: none; /* Default for most links, can be overridden */
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline; /* Common hover effect */
+}
 
 /* Main Content Area */
 main {
@@ -146,6 +146,7 @@ footer {
 
 .post-list-item h3 a:hover {
     color: #007bff; /* Specific hover for post titles, can match general or differ */
+
     /* text-decoration: underline; -- Inherited */
 }
 
@@ -157,13 +158,14 @@ footer {
 .post-list-item .read-more {
     display: inline-block;
     margin-top: 10px;
+
     /* text-decoration: none; -- Inherited */
+
     /* color: #007bff; -- Inherited */
     font-weight: bold;
 }
 
 /* .post-list-item .read-more:hover will inherit from general 'a:hover' */
-
 
 /* Utility Classes */
 .text-center {
