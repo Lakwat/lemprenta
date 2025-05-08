@@ -6,7 +6,9 @@
   "scripts": {
     "build": "npx @11ty/eleventy",
     "start": "npx @11ty/eleventy --serve",
-    "test": "echo \"No tests configured\""
+    "validate:frontmatter": "node scripts/validateFrontmatter.js",
+    "lint": "echo \"No linting configured\"",
+    "test": "npm run validate:frontmatter"
   },
   "keywords": [
     "eleventy",
@@ -17,6 +19,9 @@
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "gray-matter": "^4.0.3",
     "luxon": "^3.4.4",
     "slugify": "^1.6.6"
   }

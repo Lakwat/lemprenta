@@ -7,7 +7,7 @@ title: "My First Post, reload test"
 
 # Date of the post (used for sorting and display)
 # Using today's date based on our context.
-date: 2025-05-06
+date: "2025-05-06"
 
 # Tags for categorizing the post (can be used for filtering/related posts)
 tags: ["introduction", "testing"]
