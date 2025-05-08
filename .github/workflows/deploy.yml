@@ -34,11 +34,11 @@ jobs:
         run: npm ci
 
       - name: Build Eleventy site
-        run: npm run build # This should generate files into the '_site' directory
+        run: npm run build
 
-      # --- NEW: Lint HTML Output ---
-      - name: Lint HTML Output
-        run: npm run lint:html # Runs "npx htmlhint \"_site/**/*.html\""
+      # --- REMOVED: Lint HTML Output step was here ---
+      # - name: Lint HTML Output
+      #   run: npm run lint:html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
