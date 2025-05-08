@@ -27,15 +27,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Or your preferred Node.js version
-          cache: 'npm'
+          node-version: '20'
+          cache: 'npm' # Keep cache enabled, but we'll clear it first
+
+      # --- NEW: Clear npm cache ---
+      - name: Clear npm cache
+        run: npm cache clean --force
 
       - name: Install dependencies
         run: npm ci
 
-      # --- UPDATED: Install Puppeteer System Dependencies ---
-      # Removed libgconf-2-4 and libasound2 as they were causing errors on the runner.
       - name: Install Puppeteer System Dependencies
+        # ... (rest of the apt-get install command) ...
         run: |
           sudo apt-get update
           sudo apt-get install -yq \
@@ -59,14 +62,12 @@ jobs:
             wget \
             libu2f-udev \
             libvulkan1
-        # Note: If errors persist, the list might need further adjustment based on
-        # the specific Puppeteer version and the ubuntu-latest image.
 
       - name: Validate Frontmatter
         run: npm run validate:frontmatter
 
       - name: Build Site & Generate OG Images
-        run: npm run build # This now runs "npx @11ty/eleventy && npm run generate:og"
+        run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

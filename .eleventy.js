@@ -2,8 +2,9 @@
 
 const { DateTime } = require("luxon");
 const slugify = require("slugify");
-// --- NEW: Require the Eleventy URL plugin ---
-const pluginUrl = require("@11ty/eleventy-plugin-url");
+// --- CORRECTED: Require the Eleventy RSS plugin ---
+// This plugin also provides the |url and |absoluteUrl filters.
+const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 module.exports = function(eleventyConfig) {
   // --- Add Date Filters ---
@@ -45,10 +46,10 @@ module.exports = function(eleventyConfig) {
   // --- Configure Passthrough Copy for Assets ---
   eleventyConfig.addPassthroughCopy("assets");
 
-  // --- NEW: Add the Eleventy URL plugin ---
-  // This plugin provides useful URL filters like |url and |absoluteUrl
-  eleventyConfig.addPlugin(pluginUrl);
-  // --- END NEW ---
+  // --- CORRECTED: Add the Eleventy RSS plugin ---
+  // This provides the necessary URL filters along with RSS feed generation capabilities.
+  eleventyConfig.addPlugin(pluginRss);
+  // --- END CORRECTED ---
 
   // This return block MUST come AFTER all eleventyConfig modifications.
   return {
