@@ -1,34 +1,25 @@
 # .github/workflows/deploy.yml
 
-# Name of the workflow, displayed on the GitHub Actions tab
 name: Build and Deploy to GitHub Pages
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the main branch
   push:
     branches: [ main ]
-  # Triggers the workflow on pull request events but only for the main branch
-  # (useful for checking if the build would succeed before merging)
   pull_request:
     branches: [ main ]
 
-# Sets permissions for the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
-  cancel-in-progress: false # The guide's image is unclear; 'false' ensures a deployment finishes. 'true' would cancel older ones.
+  cancel-in-progress: false
 
 jobs:
-  # Build job: Builds the Eleventy site and uploads it as an artifact
   build:
-    runs-on: ubuntu-latest # Use the latest version of Ubuntu Linux
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,34 +27,38 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the Node.js version
-          cache: 'npm'       # Enable caching for npm dependencies
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
+      # --- NEW: Lint CSS ---
+      - name: Lint CSS
+        run: npm run lint:css # Runs "npx stylelint \"assets/css/**/*.css\""
+
       - name: Build Eleventy site
         run: npm run build # This should generate files into the '_site' directory
 
+      # --- NEW: Lint HTML Output ---
+      - name: Lint HTML Output
+        run: npm run lint:html # Runs "npx htmlhint \"_site/**/*.html\""
+
       - name: Setup Pages
-        uses: actions/configure-pages@v4 # Configures GitHub Pages for deployment
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 # Uploads the build output as an artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          # Path to the directory to upload (Eleventy's output directory)
           path: './_site'
 
-  # Deploy job: Deploys the artifact to GitHub Pages
   deploy:
-    # Specifies the environment this job targets (GitHub Pages)
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }} # Sets the deployment URL output
-
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build # This job depends on the 'build' job completing successfully
+    needs: build
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment # Give the step an ID to refer to its outputs
-        uses: actions/deploy-pages@v4 # Uses the official GitHub Action to deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
