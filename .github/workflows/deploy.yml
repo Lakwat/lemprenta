@@ -33,15 +33,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # --- NEW: Install Puppeteer System Dependencies ---
-      # Puppeteer needs these system libraries to run headless Chrome on Linux runners.
-      # List of dependencies can vary slightly based on Puppeteer version and base OS image,
-      # but these are commonly required ones.
+      # --- UPDATED: Install Puppeteer System Dependencies ---
+      # Removed libgconf-2-4 and libasound2 as they were causing errors on the runner.
       - name: Install Puppeteer System Dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -yq \
-            libgconf-2-4 \
             libatk1.0-0 \
             libatk-bridge2.0-0 \
             libcups2 \
@@ -57,14 +54,13 @@ jobs:
             libxext6 \
             libxfixes3 \
             libxrandr2 \
-            libasound2 \
             lsb-release \
             xdg-utils \
             wget \
             libu2f-udev \
             libvulkan1
-        # Note: Some Puppeteer versions/setups might require slightly different lists.
-        # Check Puppeteer's official documentation for the most up-to-date list if issues arise.
+        # Note: If errors persist, the list might need further adjustment based on
+        # the specific Puppeteer version and the ubuntu-latest image.
 
       - name: Validate Frontmatter
         run: npm run validate:frontmatter
