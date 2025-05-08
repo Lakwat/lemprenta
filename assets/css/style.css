@@ -20,6 +20,17 @@ body {
     padding: 0 20px;
 }
 
+/* --- General Link Styling (Moved Up) --- */
+a {
+    color: #007bff;
+    text-decoration: none; /* Default for most links, can be overridden */
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline; /* Common hover effect */
+}
+
 /* Header Styles */
 header {
     background-color: #333;
@@ -38,20 +49,24 @@ header p {
 }
 
 header nav a {
-    color: #fff;
+    color: #fff; /* Specific to header nav links */
     margin: 0 10px;
-    text-decoration: none;
+    /* text-decoration: none; -- Inherited from general 'a' */
 }
 
+/* header nav a:hover will inherit from general 'a:hover' unless overridden */
+/* If specific header nav hover is needed, it can be added:
 header nav a:hover {
-    text-decoration: underline;
+    text-decoration: underline; // Or other style
 }
+*/
+
 
 /* Main Content Area */
 main {
-    flex-grow: 1; /* Ensures main content takes up available space, pushing footer down */
+    flex-grow: 1;
     padding: 20px 0;
-    background-color: #fff; /* Give main content a white background */
+    background-color: #fff;
 }
 
 /* Footer Styles */
@@ -60,7 +75,7 @@ footer {
     color: #fff;
     text-align: center;
     padding: 1rem 0;
-    margin-top: auto; /* Pushes footer to the bottom if content is short */
+    margin-top: auto;
 }
 
 /* Article Styles (for blog posts) */
@@ -85,9 +100,9 @@ footer {
 }
 
 .post-meta a.tag {
-    text-decoration: none;
+    /* text-decoration: none; -- Inherited */
     background-color: #eee;
-    color: #333;
+    color: #333; /* Override general 'a' color for tags */
     padding: 2px 6px;
     border-radius: 3px;
     margin-right: 5px;
@@ -95,6 +110,7 @@ footer {
 
 .post-meta a.tag:hover {
     background-color: #ddd;
+    /* text-decoration: underline; -- Inherited */
 }
 
 /* Homepage Post List Styles */
@@ -124,25 +140,14 @@ footer {
 }
 
 .post-list-item h3 a {
-    text-decoration: none;
-    color: #333;
+    /* text-decoration: none; -- Inherited */
+    color: #333; /* Override general 'a' color for post titles */
 }
 
-/* Moved general a and a:hover rules here to address specificity issues. */
-/* If issues persist, these might need further adjustment or more specific overrides. */
-a {
-    color: #007bff;
-}
-
-a:hover {
-    color: #0056b3;
-}
-
-/* This rule was flagged for specificity, ensure it's distinct or correctly ordered */
 .post-list-item h3 a:hover {
-    color: #007bff; /* This is the same as general a:hover, could be removed if general is sufficient */
+    color: #007bff; /* Specific hover for post titles, can match general or differ */
+    /* text-decoration: underline; -- Inherited */
 }
-
 
 .post-list-item .post-meta {
     font-size: 0.85em;
@@ -152,32 +157,30 @@ a:hover {
 .post-list-item .read-more {
     display: inline-block;
     margin-top: 10px;
-    text-decoration: none;
-    color: #007bff;
+    /* text-decoration: none; -- Inherited */
+    /* color: #007bff; -- Inherited */
     font-weight: bold;
 }
 
-.post-list-item .read-more:hover {
-    text-decoration: underline;
-}
+/* .post-list-item .read-more:hover will inherit from general 'a:hover' */
+
 
 /* Utility Classes */
 .text-center {
     text-align: center;
 }
 
-/* Code blocks (basic styling, can be enhanced with syntax highlighting later) */
+/* Code blocks */
 pre {
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
     border-radius: .25rem;
     padding: 1rem;
-    overflow-x: auto; /* Allow horizontal scrolling for long lines */
+    overflow-x: auto;
     font-size: 0.9em;
 }
 
 code {
-    /* Corrected font-family-name-quotes: SFMono-Regular does not need quotes */
     font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 0.9em;
 }
