@@ -1,0 +1,47 @@
+# .github/workflows/build.yml
+
+# Name of the workflow, displayed on the GitHub Actions tab
+name: Eleventy Build Check
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events but only for the main branch
+  push:
+    branches: [ main ]
+  # Triggers the workflow on pull request events but only for the main branch
+  pull_request:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest # Use the latest version of Ubuntu Linux
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Step 1: Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
+        uses: actions/checkout@v4 # Uses a pre-built GitHub Action for checking out code
+
+      # Step 2: Sets up Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4 # Uses a pre-built GitHub Action for Node.js setup
+        with:
+          node-version: '20' # Specify the Node.js version (use a version compatible with your project)
+          cache: 'npm'       # Enable caching for npm dependencies to speed up subsequent builds
+
+      # Step 3: Install npm dependencies
+      # Using "npm ci" is recommended for CI environments as it installs dependencies exactly
+      # as defined in package-lock.json and is generally faster and more reliable for CI.
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: Build the Eleventy site
+      # This runs the "build" script defined in your package.json
+      - name: Build Eleventy site
+        run: npm run build
+        # If your build process creates artifacts that you want to inspect or use in other jobs,
+        # you can upload them using actions/upload-artifact here.
+        # For now, this basic workflow just checks if the build succeeds.
