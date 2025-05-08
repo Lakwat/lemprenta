@@ -20,15 +20,6 @@ body {
     padding: 0 20px;
 }
 
-/* Basic link styling (Moved earlier to help with specificity issues) */
-a {
-    color: #007bff;
-}
-
-a:hover {
-    color: #0056b3;
-}
-
 /* Header Styles */
 header {
     background-color: #333;
@@ -78,6 +69,7 @@ footer {
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 5px;
+
     /* Corrected rgba to modern syntax and alpha to percentage */
     box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
 }
@@ -122,6 +114,7 @@ footer {
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 5px;
+
     /* Corrected rgba to modern syntax and alpha to percentage */
     box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
 }
@@ -135,9 +128,21 @@ footer {
     color: #333;
 }
 
-.post-list-item h3 a:hover {
+/* Moved general a and a:hover rules here to address specificity issues. */
+/* If issues persist, these might need further adjustment or more specific overrides. */
+a {
     color: #007bff;
 }
+
+a:hover {
+    color: #0056b3;
+}
+
+/* This rule was flagged for specificity, ensure it's distinct or correctly ordered */
+.post-list-item h3 a:hover {
+    color: #007bff; /* This is the same as general a:hover, could be removed if general is sufficient */
+}
+
 
 .post-list-item .post-meta {
     font-size: 0.85em;
