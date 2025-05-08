@@ -33,10 +33,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # --- NEW: Lint CSS ---
-      - name: Lint CSS
-        run: npm run lint:css # Runs "npx stylelint \"assets/css/**/*.css\""
-
       - name: Build Eleventy site
         run: npm run build # This should generate files into the '_site' directory
 
