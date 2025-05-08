@@ -4,8 +4,9 @@
   "description": "My awesome automated Eleventy blog",
   "main": ".eleventy.js",
   "scripts": {
-    "build": "npx @11ty/eleventy",
+    "build": "npx @11ty/eleventy && npm run generate:og",
     "start": "npx @11ty/eleventy --serve",
+    "generate:og": "node scripts/generate-og.js",
     "validate:frontmatter": "node scripts/validateFrontmatter.js",
     "lint": "echo \"No linting configured\"",
     "test": "npm run validate:frontmatter"
@@ -23,6 +24,8 @@
     "ajv-formats": "^2.1.1",
     "gray-matter": "^4.0.3",
     "luxon": "^3.4.4",
+    "nunjucks": "^3.2.4",
+    "puppeteer": "^22.7.1",
     "slugify": "^1.6.6"
   }
 }

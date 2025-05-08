@@ -2,6 +2,8 @@
 
 const { DateTime } = require("luxon");
 const slugify = require("slugify");
+// --- NEW: Require the Eleventy URL plugin ---
+const pluginUrl = require("@11ty/eleventy-plugin-url");
 
 module.exports = function(eleventyConfig) {
   // --- Add Date Filters ---
@@ -43,6 +45,11 @@ module.exports = function(eleventyConfig) {
   // --- Configure Passthrough Copy for Assets ---
   eleventyConfig.addPassthroughCopy("assets");
 
+  // --- NEW: Add the Eleventy URL plugin ---
+  // This plugin provides useful URL filters like |url and |absoluteUrl
+  eleventyConfig.addPlugin(pluginUrl);
+  // --- END NEW ---
+
   // This return block MUST come AFTER all eleventyConfig modifications.
   return {
     dir: {
@@ -54,11 +61,7 @@ module.exports = function(eleventyConfig) {
     templateFormats: ["md", "njk", "html"],
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
-    // --- NEW: Add pathPrefix for GitHub Pages subdirectory deployment ---
-    // IMPORTANT: Replace "/your-repository-name" with the actual name of your GitHub repository,
-    // preceded by a slash. For example, if your repo is "my-automated-blog",
-    // this should be "/my-automated-blog".
-    // If your repository IS your-username.github.io, you can comment this line out or use "/".
-    pathPrefix: "/lemprenta" // <--- !!! UPDATE THIS LINE !!!
+    // Path prefix for GitHub Pages deployment
+    pathPrefix: "/lemprenta"
   };
 };

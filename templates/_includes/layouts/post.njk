@@ -1,55 +1,69 @@
-{# This line tells Nunjucks that this layout extends/inherits from base.njk #}
 {% extends "layouts/base.njk" %}
 
-{# 
-  The 'block content' section replaces the '{{ content | safe }}' placeholder 
-  in base.njk with the specific structure defined here for blog posts.
-#}
+{# This block will inject content into the 'head_extra' block in base.njk #}
+{% block head_extra %}
+    {# --- Open Graph / Facebook Meta Tags --- #}
+    {# Use the post's title, or default to site title if post title is missing #}
+    <meta property="og:title" content="{{ title or metadata.title }}">
+    <meta property="og:description" content="{{ description or metadata.description }}">
+    <meta property="og:type" content="article">
+    {# 
+        Construct the full URL to the post.
+        'page.url' is the relative URL of the current page (e.g., /posts/my-first-post/).
+        'absoluteUrl' filter will be added in the next step to prepend metadata.url.
+        For now, this might not produce a full absolute URL until Step 68.
+    #}
+    <meta property="og:url" content="{{ page.url | absoluteUrl(metadata.url) }}">
+
+    {# Construct the full URL to the OG image #}
+    {# 1. Slugify the post title to get the image filename (e.g., "my-post-title.png") #}
+    {% set og_image_slug = title | slugify %}
+    {# 2. Prepend the /og/ path and the site's base URL #}
+    <meta property="og:image" content="{{ ('/og/' + og_image_slug + '.png') | absoluteUrl(metadata.url) }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    {# Optional: Site name for OG tags #}
+    <meta property="og:site_name" content="{{ metadata.title }}">
+    {# Optional: Article specific tags for Facebook #}
+    {% if date %}<meta property="article:published_time" content="{{ date | htmlDateString }}">{% endif %}
+    {% if lastModified %}<meta property="article:modified_time" content="{{ lastModified | htmlDateString }}">{% endif %}
+    {% for tag in tags %}
+    <meta property="article:tag" content="{{ tag }}">
+    {% endfor %}
+    {# Optional: Author for Facebook (link to author's Facebook profile if available) #}
+    {# <meta property="article:author" content="YOUR_FACEBOOK_PROFILE_URL"> #}
+
+
+    {# --- Twitter Card Meta Tags --- #}
+    <meta name="twitter:card" content="summary_large_image"> {# Use "summary_large_image" for a large preview image #}
+    <meta name="twitter:title" content="{{ title or metadata.title }}">
+    <meta name="twitter:description" content="{{ description or metadata.description }}">
+    {# Construct the full URL to the Twitter image (same as og:image) #}
+    <meta name="twitter:image" content="{{ ('/og/' + og_image_slug + '.png') | absoluteUrl(metadata.url) }}">
+    {# Optional: Twitter site attribution (e.g., @YourTwitterHandle) #}
+    {# <meta name="twitter:site" content="@YourTwitterHandle"> #}
+    {# Optional: Twitter creator attribution (e.g., @AuthorTwitterHandle) #}
+    {# <meta name="twitter:creator" content="@AuthorTwitterHandle"> #}
+
+    {# --- Other useful meta tags --- #}
+    <meta name="description" content="{{ description or metadata.description }}"> {# Standard description tag #}
+{% endblock %}
+
+
+{# This is the main content block for the post #}
 {% block content %}
 <article class="post">
-    {# Display the post title from the frontmatter #}
     <h1>{{ title }}</h1>
-
-    {# Post metadata section #}
     <p class="post-meta">
         Published on 
-        {# 
-            Display the date.
-            'htmlDateString' and 'readableDate' are custom filters we defined 
-            to format the date appropriately.
-            The 'date' variable comes from the post's frontmatter.
-        #}
         <time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time>
-        
-        {# Check if the post has tags #}
         {% if tags and tags.length %}
             | Tags:
-            {# Loop through each tag in the 'tags' array (from frontmatter) #}
             {% for tag in tags %}
-                {# 
-                    Create a link for each tag. 
-                    The 'slugify' filter is a custom filter to create URL-friendly tag links.
-                    The 'url' filter is a built-in Eleventy filter.
-                #}
                 <a href="{{ ('/tags/' + (tag | slugify) + '/') | url }}" class="tag">{{ tag }}</a>{% if not loop.last %}, {% endif %}
             {% endfor %}
         {% endif %}
     </p>
-
-    {# 
-        This is where the main Markdown content of your blog post will be injected.
-        The 'content' variable holds the HTML rendered from your Markdown file.
-        The 'safe' filter ensures the HTML is rendered correctly.
-    #}
     {{ content | safe }}
-
-    {# Optional: You can add sections for author bio, related posts, comments, etc. here later #}
-    {# 
-    <section class="author-bio">
-        <h3>About the Author</h3>
-        <p>{{ metadata.author.name }} - {{ metadata.author.bio }}</p>
-    </section>
-    #}
-
 </article>
 {% endblock %}
