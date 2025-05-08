@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or metadata.title or "My Automated Blog" }}</title>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ '/' | url }}">Home</a>
+            </nav>
+        <h1>{{ metadata.title or "My Automated Blog" }}</h1>
+        <p>{{ metadata.description or "Welcome to my awesome blog!" }}</p>
+    </header>
+
+    <main>
+        {{ content | safe }}
+    </main>
+
+    <footer>
+        <p>&copy; {% year %} {{ metadata.author.name or "Your Name Here" }}. All rights reserved.</p>
+        </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

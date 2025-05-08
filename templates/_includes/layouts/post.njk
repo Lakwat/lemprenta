@@ -1,0 +1,55 @@
+{# This line tells Nunjucks that this layout extends/inherits from base.njk #}
+{% extends "layouts/base.njk" %}
+
+{# 
+  The 'block content' section replaces the '{{ content | safe }}' placeholder 
+  in base.njk with the specific structure defined here for blog posts.
+#}
+{% block content %}
+<article class="post">
+    {# Display the post title from the frontmatter #}
+    <h1>{{ title }}</h1>
+
+    {# Post metadata section #}
+    <p class="post-meta">
+        Published on 
+        {# 
+            Display the date.
+            'htmlDateString' and 'readableDate' are custom filters we defined 
+            to format the date appropriately.
+            The 'date' variable comes from the post's frontmatter.
+        #}
+        <time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time>
+        
+        {# Check if the post has tags #}
+        {% if tags and tags.length %}
+            | Tags:
+            {# Loop through each tag in the 'tags' array (from frontmatter) #}
+            {% for tag in tags %}
+                {# 
+                    Create a link for each tag. 
+                    The 'slugify' filter is a custom filter to create URL-friendly tag links.
+                    The 'url' filter is a built-in Eleventy filter.
+                #}
+                <a href="{{ ('/tags/' + (tag | slugify) + '/') | url }}" class="tag">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        {% endif %}
+    </p>
+
+    {# 
+        This is where the main Markdown content of your blog post will be injected.
+        The 'content' variable holds the HTML rendered from your Markdown file.
+        The 'safe' filter ensures the HTML is rendered correctly.
+    #}
+    {{ content | safe }}
+
+    {# Optional: You can add sections for author bio, related posts, comments, etc. here later #}
+    {# 
+    <section class="author-bio">
+        <h3>About the Author</h3>
+        <p>{{ metadata.author.name }} - {{ metadata.author.bio }}</p>
+    </section>
+    #}
+
+</article>
+{% endblock %}

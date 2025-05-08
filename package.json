@@ -1,0 +1,23 @@
+{
+  "name": "my-automated-blog",
+  "version": "1.0.0",
+  "description": "My awesome automated Eleventy blog",
+  "main": ".eleventy.js",
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "start": "npx @11ty/eleventy --serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "eleventy",
+    "blog",
+    "static-site-generator"
+  ],
+  "author": "Your Name Here",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "luxon": "^3.4.4",
+    "slugify": "^1.6.6"
+  }
+}
