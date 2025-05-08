@@ -1,4 +1,4 @@
-/* templates/assets/css/style.css */
+/* assets/css/style.css */
 
 /* Basic Reset & Body Styles */
 body {
@@ -18,6 +18,15 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+/* Basic link styling (Moved earlier to help with specificity issues) */
+a {
+    color: #007bff;
+}
+
+a:hover {
+    color: #0056b3;
 }
 
 /* Header Styles */
@@ -65,11 +74,12 @@ footer {
 
 /* Article Styles (for blog posts) */
 .post {
-    background-color: #fff; /* Should already be on main, but good for specificity */
+    background-color: #fff;
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /* Corrected rgba to modern syntax and alpha to percentage */
+    box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
 }
 
 .post h1 {
@@ -112,7 +122,8 @@ footer {
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /* Corrected rgba to modern syntax and alpha to percentage */
+    box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
 }
 
 .post-list-item h3 {
@@ -125,7 +136,7 @@ footer {
 }
 
 .post-list-item h3 a:hover {
-    color: #007bff; /* A common link hover color */
+    color: #007bff;
 }
 
 .post-list-item .post-meta {
@@ -150,15 +161,6 @@ footer {
     text-align: center;
 }
 
-/* Basic link styling */
-a {
-    color: #007bff;
-}
-
-a:hover {
-    color: #0056b3;
-}
-
 /* Code blocks (basic styling, can be enhanced with syntax highlighting later) */
 pre {
     background-color: #f8f9fa;
@@ -170,7 +172,8 @@ pre {
 }
 
 code {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    /* Corrected font-family-name-quotes: SFMono-Regular does not need quotes */
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 0.9em;
 }
 
