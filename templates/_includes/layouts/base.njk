@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title or metadata.title or "My Automated Blog" }}</title>
     
-    {# Corrected CSS link: Use the 'url' filter with a root-relative path. #}
-    {# Eleventy will prepend the 'pathPrefix' (e.g., "/lemprenta") automatically. #}
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | url }}">
     
     {# Placeholder for additional head elements from child templates (like OG tags) #}
