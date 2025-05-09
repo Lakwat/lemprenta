@@ -1,12 +1,14 @@
 // .eleventy.js
-
 const { DateTime } = require("luxon");
 const slugify = require("slugify");
-// --- CORRECTED: Require the Eleventy RSS plugin ---
-// This plugin also provides the |url and |absoluteUrl filters.
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 module.exports = function(eleventyConfig) {
+  const sitePathPrefix = "/lemprenta"; // Define it once
+
+  // Make pathPrefix available in templates
+  eleventyConfig.addGlobalData("sitePathPrefix", sitePathPrefix);
+
   // --- Add Date Filters ---
   eleventyConfig.addFilter("readableDate", (dateObj, format, zone) => {
     const jsDate = (dateObj instanceof Date) ? dateObj : new Date(dateObj);
@@ -46,12 +48,9 @@ module.exports = function(eleventyConfig) {
   // --- Configure Passthrough Copy for Assets ---
   eleventyConfig.addPassthroughCopy("assets");
 
-  // --- CORRECTED: Add the Eleventy RSS plugin ---
-  // This provides the necessary URL filters along with RSS feed generation capabilities.
+  // --- Add the Eleventy RSS plugin ---
   eleventyConfig.addPlugin(pluginRss);
-  // --- END CORRECTED ---
 
-  // This return block MUST come AFTER all eleventyConfig modifications.
   return {
     dir: {
       input: "content",
@@ -62,7 +61,6 @@ module.exports = function(eleventyConfig) {
     templateFormats: ["md", "njk", "html"],
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
-    // Path prefix for GitHub Pages deployment
-    pathPrefix: "/lemprenta"
+    pathPrefix: sitePathPrefix // Use the variable here
   };
 };
