@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title or metadata.title or "My Automated Blog" }}</title>
-
-    <link rel="stylesheet" href="/lemprenta/assets/css/style.css">
-
-    {% block head %}{% endblock %}
+    
+    {# Corrected CSS link: Use the 'url' filter with a root-relative path. #}
+    {# Eleventy will prepend the 'pathPrefix' (e.g., "/lemprenta") automatically. #}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | url }}">
+    
+    {# Placeholder for additional head elements from child templates (like OG tags) #}
+    {% block head_extra %}{% endblock %} 
 </head>
 <body>
     <header>
         <nav>
             <a href="{{ '/' | url }}">Home</a>
-            </nav>
+        </nav>
         <h1>{{ metadata.title or "My Automated Blog" }}</h1>
         <p>{{ metadata.description or "Welcome to my awesome blog!" }}</p>
     </header>
@@ -24,8 +27,9 @@
 
     <footer>
         <p>&copy; {% year %} {{ metadata.author.name or "Your Name Here" }}. All rights reserved.</p>
-        </footer>
+    </footer>
 
+    {# Placeholder for any scripts at the end of the body #}
     {% block scripts %}{% endblock %}
 </body>
 </html>
