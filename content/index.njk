@@ -1,10 +1,11 @@
 {# File: content/index.njk #}
 ---
-# Frontmatter for the homepage
+# Frontmatter for the homepage. This MUST be valid YAML.
 layout: layouts/base.njk
-title: "Inici - {{ metadata.title or 'El Meu Fantàstic Blog' }}" {# User-facing title parts remain Catalan #}
-description: "Benvingut/da al meu fantàstic blog automatitzat, amb les darreres publicacions sobre diversos temes." {# User-facing description remains Catalan #}
+title: "Inici - {{ metadata.title or 'El Meu Fantàstic Blog' }}"
+description: "Benvingut/da al meu fantàstic blog automatitzat, amb les darreres publicacions sobre diversos temes."
 permalink: /
+# Make sure this '---' is the end of the frontmatter block.
 ---
 {#
     This section defines the content that will be injected into the
@@ -21,9 +22,9 @@ permalink: /
         <ul class="post-list">
             {#
                 Loop through each post in the 'collections.posts' array.
-                The collection is sorted descending (newest first) in .eleventy.js, so no 'reverse' filter needed here.
+                The collection is sorted descending (newest first) in .eleventy.js.
             #}
-            {% for post in collections.posts %}
+            {%- for post in collections.posts %}
                 <li class="post-list-item">
                     <h3>
                         {#
@@ -31,7 +32,7 @@ permalink: /
                             'post.url' is an Eleventy-provided variable that gives the correct URL for the post.
                             'post.data.title' accesses the title from the post's frontmatter.
                         #}
-                        <a href="{{ post.url }}">{{ post.data.title }}</a>
+                        <a href="{{ post.url | url }}">{{ post.data.title }}</a>
                     </h3>
                     {# Display the post date, using filters defined in .eleventy.js #}
                     <p class="post-meta">
@@ -46,9 +47,9 @@ permalink: /
                     {#
                         Link to the full post.
                     #}
-                    <a href="{{ post.url }}" class="read-more">Llegeix-ne més &rarr;</a> {# User-facing "Read more" remains Catalan #}
+                    <a href="{{ post.url | url }}" class="read-more">Llegeix-ne més &rarr;</a> {# User-facing "Read more" remains Catalan #}
                 </li>
-            {% endfor %}
+            {%- endfor %}
         </ul>
     {% else %}
         <p>Encara no s'han trobat publicacions. Torna aviat!</p> {# User-facing "No posts found" message remains Catalan #}

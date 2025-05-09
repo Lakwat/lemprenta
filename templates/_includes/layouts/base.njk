@@ -1,35 +1,46 @@
 {# File: templates/_includes/layouts/base.njk #}
 <!DOCTYPE html>
-<html lang="ca"> {# Language attribute remains 'ca' for Catalan content #}
+<html lang="ca"> {# Language attribute set to Catalan #}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {# The title will use the page title, then metadata.title, or a default in Catalan #}
+    {# The title will use the page's title, then metadata.title, or a default in Catalan #}
     <title>{{ title or metadata.title or "El Meu Blog Automatitzat" }}</title>
 
-    {# Construct the CSS path manually using eleventy.pathPrefix #}
-    {# This assumes 'assets' is at the root of your output directory before prefixing #}
-    <link rel="stylesheet" href="{{ eleventy.pathPrefix }}/assets/css/style.css">
+    {# 
+      Correctly link to the CSS file.
+      Assumes 'assets' is copied to the root of your output directory (_site).
+      eleventy.pathPrefix defaults to "/" if not set, which is usually correct.
+    #}
+    <link rel="stylesheet" href="{{ eleventy.pathPrefix | default('/') }}assets/css/style.css">
 
-    {# Placeholder for additional head elements from child templates (Like OG tags or AdSense head script) #}
+    {# Include the partial for the AdSense script in the head #}
+    {# Remember to uncomment this when AdSense is approved and configured #}
+    {# {% include "partials/adsense-head.njk" %} #}
+
+    {# Placeholder for additional head elements from child templates (like OG tags) #}
     {% block head_extra %}{% endblock %}
 </head>
 <body>
-    <header>
+    <header class="container"> {# Added .container class for consistency with some styles #}
         <nav>
-            {# Construct the Home link path manually #}
-            <a href="{{ eleventy.pathPrefix }}/">Inici</a> {# User-facing text "Inici" (Home) remains Catalan #}
+            {# Ensure the home link correctly uses pathPrefix #}
+            <a href="{{ eleventy.pathPrefix | default('/') }}">Inici</a> {# User-facing text "Inici" (Home) remains Catalan #}
         </nav>
-        <h1>{{ metadata.title or "El Meu Blog Automatitzat" }}</h1> {# Uses metadata.title or a translated default #}
-        <p>{{ metadata.description or "Benvingut/da al meu fantàstic blog!" }}</p> {# Uses metadata.description or a translated default #}
+        {# Display site title and description from metadata, with fallbacks #}
+        <h1>{{ metadata.title or "El Meu Blog Automatitzat" }}</h1>
+        <p>{{ metadata.description or "Benvingut/da al meu fantàstic blog!" }}</p>
     </header>
 
-    <main>
+    <main class="container"> {# Added .container class for consistency #}
         {{ content | safe }}
     </main>
 
-    <footer>
-        <p>&copy; {% year %} {{ metadata.author.name or "El Teu Nom Aquí" }}. Tots els drets reservats.</p> {# User-facing text remains Catalan #}
+    <footer class="container"> {# Added .container class for consistency #}
+        {# Include the support button partial in the footer #}
+        {% include "partials/support-button.njk" %}
+
+        <p style="margin-top: 20px;">&copy; {% year %} {{ metadata.author.name or "El Teu Nom Aquí" }}. Tots els drets reservats.</p> {# User-facing text remains Catalan #}
     </footer>
 
     {# Placeholder for any scripts at the end of the body #}
