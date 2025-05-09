@@ -1,68 +1,55 @@
 ---
 # Frontmatter for the homepage
-
-# Specifies that this page should use the 'base.njk' layout
 layout: layouts/base.njk
-
-# The title that will appear in the browser tab and potentially in the <title> tag
 title: Home - My Awesome Blog
-
-# A description for SEO and social media previews
 description: "Welcome to my awesome automated blog, featuring the latest posts on various topics."
-
-# Permalink determines the output URL for this page.
-# '/' means this will be the root page of your site (e.g., yourdomain.com/).
 permalink: /
 ---
-
-{# 
-  This section defines the content that will be injected into the 
-  {{ content | safe }} placeholder within the 'layouts/base.njk' layout.
+{#
+    This section defines the content that will be injected into the
+    {{ content | safe }} placeholder within the 'layouts/base.njk' layout.
 #}
-
 <div class="home-page">
     <h2>Latest Posts</h2>
-
-    {# 
-      Check if there are any posts in the 'collections.posts'.
-      'collections.posts' will be a custom collection we define later in .eleventy.js
-      It will contain all our blog posts, usually sorted by date.
+    {#
+        Check if there are any posts in the 'collections.posts'.
+        'collections.posts' is a custom collection defined in .eleventy.js
+        It contains all blog posts, sorted by date.
     #}
     {% if collections.posts and collections.posts.length %}
         <ul class="post-list">
-            {# 
-              Loop through each post in the 'collections.posts' array.
-              The 'reverse' filter is used here assuming posts are sorted oldest to newest by default
-              in the collection, and we want to show newest first. If your collection is already
-              sorted newest first, you might not need 'reverse'.
-              Alternatively, ensure the collection is sorted descending in .eleventy.js.
+            {#
+                Loop through each post in the 'collections.posts' array.
+                The collection is sorted descending (newest first) in .eleventy.js, so no 'reverse' filter needed here.
             #}
-            {%- for post in collections.posts | reverse -%}
-                <li class="post-list-item">
-                    <h3>
-                        {# 
-                          Create a link to the individual post.
-                          'post.url' is an Eleventy-provided variable that gives the correct URL for the post.
-                          'post.data.title' accesses the title from the post's frontmatter.
-                        #}
-                        <a href="{{ post.url | url }}">{{ post.data.title }}</a>
-                    </h3>
-                    {# Display the post date, using filters we'll define later #}
-                    <p class="post-meta">
-                        <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
-                    </p>
-                    {# 
-                      Display the post's description from its frontmatter, if available.
-                      The 'truncate' filter is not standard; you'd need to create or install one
-                      if you want to limit the length of the description shown here.
-                      For now, we'll just display it as is.
+            {%- for post in collections.posts %}
+            <li class="post-list-item">
+                <h3>
+                    {#
+                        Create a link to the individual post.
+                        'post.url' is an Eleventy-provided variable that gives the correct URL for the post.
+                        'post.data.title' accesses the title from the post's frontmatter.
+                        REMOVED |url filter from post.url
                     #}
-                    {% if post.data.description %}
-                        <p>{{ post.data.description }}</p>
-                    {% endif %}
-                    <a href="{{ post.url | url }}" class="read-more">Read more &rarr;</a>
-                </li>
-            {%- endfor -%}
+                    <a href="{{ post.url }}">{{ post.data.title }}</a>
+                </h3>
+                {# Display the post date, using filters defined in .eleventy.js #}
+                <p class="post-meta">
+                    <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+                </p>
+                {#
+                    Display the post's description from its frontmatter, if available.
+                #}
+                {% if post.data.description %}
+                    <p>{{ post.data.description }}</p>
+                {% endif %}
+                {#
+                    Link to the full post.
+                    REMOVED |url filter from post.url
+                #}
+                <a href="{{ post.url }}" class="read-more">Read more &rarr;</a>
+            </li>
+            {%- endfor %}
         </ul>
     {% else %}
         <p>No posts found yet. Check back soon!</p>

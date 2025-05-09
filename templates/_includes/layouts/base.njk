@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title or metadata.title or "My Automated Blog" }}</title>
 
-    {# Debugging the url filter output #}
-    {% set css_path_from_filter = '/assets/css/style.css' | url %}
-    <link rel="stylesheet" href="{{ css_path_from_filter }}">
+    {# Construct the CSS path manually using eleventy.pathPrefix #}
+    {# This assumes 'assets' is at the root of your output directory before prefixing #}
+    <link rel="stylesheet" href="{{ eleventy.pathPrefix }}/assets/css/style.css">
 
     {# Placeholder for additional head elements from child templates (Like OG tags) #}
     {% block head_extra %}{% endblock %}
@@ -15,7 +15,8 @@
 <body>
     <header>
         <nav>
-            <a href="{{ '/' | url }}">Home</a>
+            {# Construct the Home link path manually #}
+            <a href="{{ eleventy.pathPrefix }}/">Home</a>
         </nav>
         <h1>{{ metadata.title or "My Automated Blog" }}</h1>
         <p>{{ metadata.description or "Welcome to my awesome blog!" }}</p>
