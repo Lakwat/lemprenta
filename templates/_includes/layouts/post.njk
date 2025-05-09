@@ -1,25 +1,24 @@
+{# File: templates/_includes/layouts/post.njk #}
 {% extends "layouts/base.njk" %}
 
 {# This block will inject content into the 'head_extra' block in base.njk #}
 {% block head_extra %}
-    {# Open Graph / Facebook Meta Tags --- #}
+    {# Open Graph / Facebook Meta Tags #}
     {# Use the post's title, or default to site title if post title is missing #}
     <meta property="og:title" content="{{ title or metadata.title }}">
     <meta property="og:description" content="{{ description or metadata.description }}">
     <meta property="og:type" content="article">
-
     {#
         Construct the full URL to the post.
-        Assumes 'metadata.url' is the base (e.g., https://lakwat.github.io)
-        and 'page.url' already includes the pathPrefix (e.g., /lemprenta/posts/my-post/).
+        Assumes 'metadata.url' is the base (e.g., https://yourdomain.com)
+        and 'page.url' already includes the pathPrefix (e.g., /yourPathPrefix/posts/my-post/).
     #}
     <meta property="og:url" content="{{ metadata.url }}{{ page.url }}">
-
     {# Construct the full URL to the OG Image #}
     {% set og_image_slug = title | slugify %}
     {#
-        Assumes 'metadata.url' is the base (e.g., https://lakwat.github.io)
-        and 'eleventy.pathPrefix' is /lemprenta.
+        Assumes 'metadata.url' is the base
+        and 'eleventy.pathPrefix' is the path prefix if any.
     #}
     <meta property="og:image" content="{{ metadata.url }}{{ eleventy.pathPrefix }}/og/{{ og_image_slug }}.png">
     <meta property="og:image:width" content="1200">
@@ -31,9 +30,7 @@
     {# Optional: Article specific tags for Facebook #}
     {% if date %}<meta property="article:published_time" content="{{ date | htmlDateString }}">{% endif %}
     {% if lastModified %}<meta property="article:modified_time" content="{{ lastModified | htmlDateString }}">{% endif %}
-    {% for tag in tags %}
-    <meta property="article:tag" content="{{ tag }}">
-    {% endfor %}
+    {% for tag in tags %}<meta property="article:tag" content="{{ tag }}">{% endfor %}
     {# <meta property="article:author" content="YOUR_FACEBOOK_PROFILE_URL"> #}
 
     {# Twitter Card Meta Tags #}
@@ -54,17 +51,20 @@
 <article class="post">
     <h1>{{ title }}</h1>
     <p class="post-meta">
-        Published on
+        Publicat el {# User-facing "Published on" remains Catalan #}
         <time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time>
         {% if tags and tags.length %}
-            | Tags:
+            | Etiquetes: {# User-facing "Tags:" remains Catalan #}
             {% for tag in tags %}
-            {# Construct tag link manually using eleventy.pathPrefix #}
-            <a href="{{ eleventy.pathPrefix }}/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+                {# Construct tag link manually using eleventy.pathPrefix #}
+                <a href="{{ eleventy.pathPrefix }}/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>{% if not loop.last %}, {% endif %}
             {% endfor %}
         {% endif %}
     </p>
 
     {{ content | safe }}
+
+    {# This is a good place to optionally add the AdSense ad unit if desired within each post #}
+    {# {% include "partials/adsense-unit.njk" %} #}
 </article>
 {% endblock %}

@@ -1,0 +1,35 @@
+{# File: templates/_includes/partials/adsense-unit.njk #}
+{#
+  This partial represents a single AdSense ad unit.
+  You can include this partial wherever you want an ad to appear in your content,
+  for example, within a blog post or in a sidebar.
+
+  Remember to replace:
+  - 'ca-pub-YOUR_PUB_ID' with your actual AdSense Publisher ID.
+  - 'YOUR_AD_SLOT_ID' with the specific Ad Slot ID for this ad unit.
+    You'll get this when you create an ad unit in your AdSense account.
+
+  The `style` attribute (e.g., "display:block") and `data-ad-format` 
+  can be customized based on the type of ad unit you create in AdSense 
+  (e.g., display, in-feed, in-article).
+  For responsive ads, "display:block" is common. "data-ad-format="auto"" 
+  allows AdSense to automatically size the ad.
+#}
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-YOUR_PUB_ID"
+     data-ad-slot="YOUR_AD_SLOT_ID"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+{#
+  Notes:
+  - Each <ins> tag should correspond to a unique ad unit you've defined in AdSense,
+    each with its own data-ad-slot ID.
+  - The (adsbygoogle = window.adsbygoogle || []).push({}); script initializes the ad.
+    It's safe to call this multiple times on a page if you have multiple ad units.
+  - Ensure that the main AdSense script (from adsense-head.njk) is loaded in the <head>
+    of your page for these ad units to work.
+#}

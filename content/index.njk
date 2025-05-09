@@ -1,8 +1,9 @@
+{# File: content/index.njk #}
 ---
 # Frontmatter for the homepage
 layout: layouts/base.njk
-title: Home - My Awesome Blog
-description: "Welcome to my awesome automated blog, featuring the latest posts on various topics."
+title: "Inici - {{ metadata.title or 'El Meu Fantàstic Blog' }}" {# User-facing title parts remain Catalan #}
+description: "Benvingut/da al meu fantàstic blog automatitzat, amb les darreres publicacions sobre diversos temes." {# User-facing description remains Catalan #}
 permalink: /
 ---
 {#
@@ -10,7 +11,7 @@ permalink: /
     {{ content | safe }} placeholder within the 'layouts/base.njk' layout.
 #}
 <div class="home-page">
-    <h2>Latest Posts</h2>
+    <h2>Últimes Publicacions</h2> {# User-facing "Latest Posts" remains Catalan #}
     {#
         Check if there are any posts in the 'collections.posts'.
         'collections.posts' is a custom collection defined in .eleventy.js
@@ -22,36 +23,34 @@ permalink: /
                 Loop through each post in the 'collections.posts' array.
                 The collection is sorted descending (newest first) in .eleventy.js, so no 'reverse' filter needed here.
             #}
-            {%- for post in collections.posts %}
-            <li class="post-list-item">
-                <h3>
+            {% for post in collections.posts %}
+                <li class="post-list-item">
+                    <h3>
+                        {#
+                            Create a link to the individual post.
+                            'post.url' is an Eleventy-provided variable that gives the correct URL for the post.
+                            'post.data.title' accesses the title from the post's frontmatter.
+                        #}
+                        <a href="{{ post.url }}">{{ post.data.title }}</a>
+                    </h3>
+                    {# Display the post date, using filters defined in .eleventy.js #}
+                    <p class="post-meta">
+                        <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+                    </p>
                     {#
-                        Create a link to the individual post.
-                        'post.url' is an Eleventy-provided variable that gives the correct URL for the post.
-                        'post.data.title' accesses the title from the post's frontmatter.
-                        REMOVED |url filter from post.url
+                        Display the post's description from its frontmatter, if available.
                     #}
-                    <a href="{{ post.url }}">{{ post.data.title }}</a>
-                </h3>
-                {# Display the post date, using filters defined in .eleventy.js #}
-                <p class="post-meta">
-                    <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
-                </p>
-                {#
-                    Display the post's description from its frontmatter, if available.
-                #}
-                {% if post.data.description %}
-                    <p>{{ post.data.description }}</p>
-                {% endif %}
-                {#
-                    Link to the full post.
-                    REMOVED |url filter from post.url
-                #}
-                <a href="{{ post.url }}" class="read-more">Read more &rarr;</a>
-            </li>
-            {%- endfor %}
+                    {% if post.data.description %}
+                        <p>{{ post.data.description }}</p>
+                    {% endif %}
+                    {#
+                        Link to the full post.
+                    #}
+                    <a href="{{ post.url }}" class="read-more">Llegeix-ne més &rarr;</a> {# User-facing "Read more" remains Catalan #}
+                </li>
+            {% endfor %}
         </ul>
     {% else %}
-        <p>No posts found yet. Check back soon!</p>
+        <p>Encara no s'han trobat publicacions. Torna aviat!</p> {# User-facing "No posts found" message remains Catalan #}
     {% endif %}
 </div>

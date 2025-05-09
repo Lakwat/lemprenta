@@ -1,22 +1,21 @@
 {
-    "title": "My Awesome Automated Blog",
-    "url": "https://www.example.com/",
-    "language": "en",
-    "description": "I am writing about my experiences as a blogger and sharing tips on automation.",
-    "author": {
-      "name": "Your Name Here",
-      "email": "you@example.com",
-      "url": "https://www.example.com/about-me/"
-    },
-    "feed": {
-      "subtitle": "I am writing about my experiences as a blogger.",
-      "filename": "feed.xml",
-      "path": "/feed/feed.xml",
-      "id": "https://www.example.com/"
-    },
-    "jsonfeed": {
-      "path": "/feed/feed.json",
-      "url": "https://www.example.com/feed/feed.json"
-    }
+  "title": "El Meu Fantàstic Blog Automatitzat",
+  "url": "https://www.example.com/",
+  "language": "ca",
+  "description": "Estic escrivint sobre les meves experiències com a blogger i compartint consells sobre automatització i tecnologia.",
+  "author": {
+    "name": "El Teu Nom Aquí",
+    "email": "elteuemail@example.com",
+    "url": "https://www.example.com/sobre-mi/"
+  },
+  "feed": {
+    "subtitle": "Les últimes publicacions del Meu Fantàstic Blog Automatitzat.",
+    "filename": "feed.xml",
+    "path": "/feed/feed.xml",
+    "id": "https://www.example.com/"
+  },
+  "jsonfeed": {
+    "path": "/feed/feed.json",
+    "url": "https://www.example.com/feed/feed.json"
   }
-  
+}

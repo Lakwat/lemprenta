@@ -1,0 +1,19 @@
+{# 
+  templates/_includes/partials/adsense-head.njk
+  This partial contains the main Google AdSense script.
+  It should be included in the <head> of your base layout.
+#}
+
+{# 
+  IMPORTANT: Replace "ca-pub-YOUR_PUB_ID" with your actual Google AdSense Publisher ID.
+  You get this ID when you sign up for AdSense.
+  Leaving it as a placeholder will not display ads.
+#}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"
+     crossorigin="anonymous"></script>
+
+{# 
+  Optional: If you want to enable AdSense Auto ads, you might place additional
+  configuration here or manage it through your AdSense account.
+  For now, this is just the basic script required for ad units.
+#}

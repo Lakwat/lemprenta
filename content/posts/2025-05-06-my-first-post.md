@@ -1,35 +1,40 @@
 ---
-# YAML Frontmatter starts with --- and ends with ---
-# These key-value pairs provide metadata about the post.
+# El Frontmatter YAML comença amb --- i acaba amb ---
+# Aquests parells clau-valor proporcionen metadades sobre la publicació.
 
-# Title of the blog post (used in templates and SEO)
-title: "My First Post, reload test"
+# Títol de la publicació del blog (utilitzat en plantilles i SEO)
+title: "La Meva Primera Publicació, prova de recàrrega"
 
-# Date of the post (used for sorting and display)
-# Using today's date based on our context.
-date: "2025-05-06"
+# Data de la publicació (utilitzada per ordenar i mostrar)
+# Utilitzant la data d'avui basada en el nostre context.
+date: "2025-05-06" # Pots canviar-la a "git Last Modified" si prefereixes que s'actualitzi automàticament
 
-# Tags for categorizing the post (can be used for filtering/related posts)
-tags: ["introduction", "testing"]
+# Etiquetes per categoritzar la publicació (es poden utilitzar per filtrar/publicacions relacionades)
+tags: ["introducció", "proves", "català"]
 
-# Specifies which layout file (from templates/_includes/layouts/)
-# should be used to render this post. We'll create this file later.
+# Especifica quin fitxer de disseny (de templates/_includes/layouts/)
+# s'ha d'utilitzar per renderitzar aquesta publicació.
 layout: layouts/post.njk
 
-# A short description for SEO and social media previews.
-description: "This is the very first post on my automated blog!"
+# Una breu descripció per a SEO i previsualitzacions en xarxes socials.
+description: "Aquesta és la primera publicació al meu blog automatitzat en català!"
 ---
 
-# Hello World! This is the content of my very first blog post. Eleventy will take this Markdown file, combine it with the `post.njk` layout, and generate an HTML page.
+# Hola Món! Aquest és el contingut de la meva primera publicació al blog.
 
-You can write standard Markdown here:
+Eleventy agafarà aquest fitxer Markdown, el combinarà amb el disseny `post.njk` i generarà una pàgina HTML.
 
-* Lists
-* Are
-* Easy
+Pots escriure Markdown estàndard aquí:
 
-And include **bold** or *italic* text.
+* Les llistes
+* Són
+* Fàcils
+
+I incloure text en **negreta** o *itàlica*.
 
 ```javascript
-// Even code blocks work!
-console.log("Hello from my first post!");
+// Fins i tot els blocs de codi funcionen!
+console.log("Hola des de la meva primera publicació!");
+```
+
+Aquesta publicació és una demostració de com es pot crear contingut fàcilment.

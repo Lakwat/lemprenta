@@ -1,0 +1,50 @@
+{# File: templates/_includes/partials/support-button.njk #}
+{#
+  Aquest fragment és per a un botó/enllaç de "dóna'm suport" o "convida'm a un cafè".
+  Pots incloure'l al peu de pàgina, a la barra lateral o al final de les publicacions.
+
+  Personalitza el següent:
+  - L'enllaç (href) a la teva pàgina de suport real.
+  - La imatge (src) o el text per al botó.
+  - El text descriptiu.
+#}
+<div class="support-me-container" style="text-align: center; margin-top: 20px; padding: 15px; background-color: #f9f9f9; border-radius: 8px;">
+    <p style="margin-bottom: 10px; font-size: 0.9em; color: #555;">
+        Si has trobat útil o agradable aquest contingut, si us plau, considera donar suport al blog!
+    </p>
+    {# --- Exemple 1: Enllaç amb imatge de Buy Me a Coffee --- #}
+    {# Reemplaça 'EL_TEU_USUARI_BUYMEACOFFEE' amb el teu nom d'usuari real #}
+    <a href="https://www.buymeacoffee.com/EL_TEU_USUARI_BUYMEACOFFEE" target="_blank" rel="noopener noreferrer nofollow" title="Convida'm a un cafè">
+        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Convida'm a un cafè" style="height: 40px !important; width: auto !important;">
+    </a>
+
+    {# --- Exemple 2: Enllaç de text simple per a Patreon --- #}
+    {#
+    <p style="margin-top:15px;">
+        <a href="https://www.patreon.com/EL_TEU_USUARI_PATREON" target="_blank" rel="noopener noreferrer nofollow" style="padding: 10px 15px; background-color: #ff424d; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            Dóna'm suport a Patreon
+        </a>
+    </p>
+    #}
+
+    {# --- Exemple 3: Enllaç de text genèric --- #}
+    {#
+    <p style="margin-top:15px;">
+        <a href="EL_TEU_ENLLAÇ_DE_SUPORT_AQUI" target="_blank" rel="noopener noreferrer nofollow" style="padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            Fes una donació
+        </a>
+    </p>
+    #}
+    <p style="margin-top: 10px; font-size: 0.8em; color: #777;">
+        El teu suport ajuda a mantenir aquest blog en funcionament i (idealment) lliure de publicitat, o ajuda a cobrir les despeses. Gràcies!
+    </p>
+</div>
+{#
+  Notes:
+  - target="_blank" obre l'enllaç en una nova pestanya.
+  - rel="noopener noreferrer nofollow" són bones pràctiques de seguretat i SEO per a enllaços externs, especialment els patrocinats/afiliats.
+    "nofollow" indica als motors de cerca que no transfereixin autoritat d'enllaç.
+  - Pots afegir més estil en línia (com es mostra per simplicitat) o mitjançant el teu fitxer CSS.
+  - Tria un dels exemples o adapta'l a la teva plataforma preferida.
+  - Els comentaris de codi romanen en anglès per claredat del desenvolupador, però tot el text visible per l'usuari s'ha traduït.
+#}

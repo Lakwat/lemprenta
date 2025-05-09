@@ -1,53 +1,65 @@
+{# File: templates/_includes/og-image-template.html #}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200, height=630"> <title>OG Image for {{ title }}</title>
+    {# Viewport fix per a Puppeteer, assegura que les dimensions són les correctes #}
+    <meta name="viewport" content="width=1200, height=630">
+    <title>Imatge OG per a: {{ title }}</title> {# Text intern, no visible a la imatge final #}
     <style>
-        /* Basic styling for the OG image. Keep it simple as complex CSS might not render perfectly in all headless browsers. */
+        /* Estils bàsics per a la imatge OG. Mantenir-ho simple, ja que CSS complex podria no renderitzar-se perfectament. */
         body {
             margin: 0;
             padding: 0;
-            width: 1200px; /* Standard OG width */
-            height: 630px;  /* Standard OG height */
+            width: 1200px; /* Amplada estàndard OG */
+            height: 630px;  /* Alçada estàndard OG */
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Centra el contingut verticalment */
+            align-items: center; /* Centra el contingut horitzontalment */
             text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #2c3e50; /* Example background color */
-            color: #ecf0f1; /* Example text color */
-            box-sizing: border-box; /* Ensures padding/border don't add to width/height */
+            font-family: Arial, Helvetica, sans-serif; /* Font genèrica per compatibilitat */
+            background-color: #2c3e50; /* Color de fons d'exemple (blau fosc) */
+            color: #ecf0f1; /* Color de text d'exemple (blanc trencat) */
+            box-sizing: border-box; /* Assegura que padding/border no afegeixin a amplada/alçada */
         }
 
         .container {
-            padding: 50px;
-            max-width: 90%; /* Ensure content doesn't touch edges */
-            border: 10px solid #ecf0f1; /* Example border */
+            padding: 60px; /* Augmentat el padding per a més espai */
+            max-width: 90%; /* Assegura que el contingut no toqui les vores */
+            border: 10px solid #ecf0f1; /* Vora d'exemple */
             border-radius: 15px;
+            background-color: rgba(0,0,0,0.2); /* Fons lleugerament transparent per al contenidor */
         }
 
         h1 {
-            font-size: 72px; /* Large font size for the title */
-            margin: 0 0 20px 0;
-            line-height: 1.2;
-            /* Simple text shadow for better readability */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 72px; /* Mida de font gran per al títol */
+            margin: 0 0 25px 0; /* Marge inferior per separar del nom del lloc */
+            line-height: 1.2; /* Interlineat per a títols llargs */
+            /* Ombra de text simple per a millor llegibilitat */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            max-width: 1000px; /* Evita que el títol sigui massa ample */
         }
 
-        /* You could add a site name or logo placeholder here too */
+        /* Es podria afegir un nom de lloc o un logotip aquí també */
         .site-name {
             font-size: 36px;
-            opacity: 0.7;
-            margin-top: 30px;
+            opacity: 0.8; /* Una mica menys prominent que el títol */
+            margin-top: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        {# El títol de la publicació es passa aquí des de generate-og.js #}
         <h1>{{ title }}</h1>
 
-        </div>
+        {# Pots afegir el nom del teu lloc aquí si vols que aparegui a la imatge OG #}
+        {# Per exemple, si el tens a metadata.json, podries intentar passar-lo #}
+        {# o codificar-lo directament si és constant. #}
+        {# Per ara, el deixarem comentat o pots afegir text estàtic. #}
+        {# <div class="site-name">El Meu Blog</div> #}
+    </div>
 </body>
 </html>
