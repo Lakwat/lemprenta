@@ -1,22 +1,23 @@
 ---
-# El Frontmatter YAML comença amb --- i acaba amb ---
-# Aquests parells clau-valor proporcionen metadades sobre la publicació.
+# YAML Frontmatter starts with --- and ends with ---
+# These key-value pairs provide metadata about the post.
 
-# Títol de la publicació del blog (utilitzat en plantilles i SEO)
+# Title of the blog post (used in templates and SEO)
 title: "La Meva Primera Publicació, prova de recàrrega"
 
-# Data de la publicació (utilitzada per ordenar i mostrar)
-# Utilitzant la data d'avui basada en el nostre context.
-date: "2025-05-06" # Pots canviar-la a "git Last Modified" si prefereixes que s'actualitzi automàticament
+# Date of the post (used for sorting and display)
+# Using today's date based on our context.
+date: "2025-05-06" # You can change this to "git Last Modified" if you prefer it to update automatically
 
-# Etiquetes per categoritzar la publicació (es poden utilitzar per filtrar/publicacions relacionades)
+# Tags for categorizing the post (can be used for filtering/related posts)
 tags: ["introducció", "proves", "català"]
 
-# Especifica quin fitxer de disseny (de templates/_includes/layouts/)
-# s'ha d'utilitzar per renderitzar aquesta publicació.
-layout: layouts/post.njk
+# Specifies which layout file (from templates/_includes/layouts/)
+# should be used to render this post.
+# CORRECTED: Removed the redundant 'layouts/' prefix.
+layout: post.njk
 
-# Una breu descripció per a SEO i previsualitzacions en xarxes socials.
+# A short description for SEO and social media previews.
 description: "Aquesta és la primera publicació al meu blog automatitzat en català!"
 ---
 
@@ -33,7 +34,7 @@ Pots escriure Markdown estàndard aquí:
 I incloure text en **negreta** o *itàlica*.
 
 ```javascript
-// Fins i tot els blocs de codi funcionen!
+// Even code blocks work!
 console.log("Hola des de la meva primera publicació!");
 ```
 
