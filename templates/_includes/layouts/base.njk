@@ -4,30 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title or metadata.title or "My Automated Blog" }}</title>
-    
-    {# Hardcoding the path as the url filter + pathPrefix is causing duplication #}
-    <link rel="stylesheet" href="/lemprenta/assets/css/style.css"> 
-    
-    {# Placeholder for additional head elements from child templates (like OG tags) #}
-    {% block head_extra %}{% endblock %} 
+    {# Use the |url filter to correctly resolve the path to the stylesheet #}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | url }}">
+    {# Placeholder for additional head elements from child templates (Like OG tags) #}
+    {% block head_extra %}{% endblock %}
 </head>
 <body>
     <header>
         <nav>
-            <a href="{{ '/' | url }}">Home</a> {# Keep |url here for the root link #}
+            {# The url filter is also good practice for site navigation links #}
+            <a href="{{ '/' | url }}">Home</a>
         </nav>
         <h1>{{ metadata.title or "My Automated Blog" }}</h1>
         <p>{{ metadata.description or "Welcome to my awesome blog!" }}</p>
     </header>
-
     <main>
         {{ content | safe }}
     </main>
-
     <footer>
         <p>&copy; {% year %} {{ metadata.author.name or "Your Name Here" }}. All rights reserved.</p>
     </footer>
-
     {# Placeholder for any scripts at the end of the body #}
     {% block scripts %}{% endblock %}
 </body>
