@@ -22,25 +22,31 @@
     {% block head_extra %}{% endblock %}
 </head>
 <body>
-    <header class="container"> {# Added .container class for consistency with some styles #}
-        <nav>
-            {# Ensure the home link correctly uses pathPrefix #}
-            <a href="{{ eleventy.pathPrefix | default('/') }}">Inici</a> {# User-facing text "Inici" (Home) remains Catalan #}
-        </nav>
-        {# Display site title and description from metadata, with fallbacks #}
-        <h1>{{ metadata.title or "El Meu Blog Automatitzat" }}</h1>
-        <p>{{ metadata.description or "Benvingut/da al meu fantàstic blog!" }}</p>
+    <header> {# This <header> tag can now be styled for a full-width background #}
+        <div class="container"> {# Inner div to constrain and center content #}
+            <nav>
+                {# Ensure the home link correctly uses pathPrefix #}
+                <a href="{{ eleventy.pathPrefix | default('/') }}">Inici</a> {# User-facing text "Inici" (Home) remains Catalan #}
+            </nav>
+            {# Display site title and description from metadata, with fallbacks #}
+            <h1>{{ metadata.title or "El Meu Blog Automatitzat" }}</h1>
+            <p>{{ metadata.description or "Benvingut/da al meu fantàstic blog!" }}</p>
+        </div>
     </header>
 
-    <main class="container"> {# Added .container class for consistency #}
-        {{ content | safe }}
+    <main> {# This <main> tag can be styled for its own background if needed #}
+        <div class="container"> {# Inner div to constrain and center content #}
+            {{ content | safe }}
+        </div>
     </main>
 
-    <footer class="container"> {# Added .container class for consistency #}
-        {# Include the support button partial in the footer #}
-        {% include "partials/support-button.njk" %}
+    <footer> {# This <footer> tag can be styled for a full-width background #}
+        <div class="container"> {# Inner div to constrain and center content #}
+            {# Include the support button partial in the footer #}
+            {% include "partials/support-button.njk" %}
 
-        <p style="margin-top: 20px;">&copy; {% year %} {{ metadata.author.name or "El Teu Nom Aquí" }}. Tots els drets reservats.</p> {# User-facing text remains Catalan #}
+            <p style="margin-top: 20px;">&copy; {% year %} {{ metadata.author.name or "El Teu Nom Aquí" }}. Tots els drets reservats.</p> {# User-facing text remains Catalan #}
+        </div>
     </footer>
 
     {# Placeholder for any scripts at the end of the body #}

@@ -7,14 +7,15 @@ const { DateTime } = require("luxon");
 module.exports = function(eleventyConfig) {
 
     // Passthrough copy for static assets
-    // This copies the 'templates/assets/' directory to '_site/assets/'
-    eleventyConfig.addPassthroughCopy("templates/assets");
-    // If you have other static directories, like an 'img' folder at the root:
+    // This copies your root 'assets/' directory and its contents to '_site/assets/'
+    eleventyConfig.addPassthroughCopy("assets"); // CORRECTED: Copies the root 'assets' folder
+
+    // If you have other static directories at the root, like an 'img' folder:
     // eleventyConfig.addPassthroughCopy("img");
 
     // Date Formatting Filters using Luxon
     // For displaying readable dates, e.g., "15 May 2023"
-    eleventyConfig.addFilter("readableDate", (dateObj, format = "dd LLL yyyy", locale = "ca") => {
+    eleventyConfig.addFilter("readableDate", (dateObj, format = "dd LLLL yyyy", locale = "ca") => { // Changed format for Catalan month name
         // Assuming dateObj is a JavaScript Date object (Eleventy typically provides this for frontmatter dates)
         return DateTime.fromJSDate(dateObj, { zone: 'utc' }).setLocale(locale).toFormat(format);
     });
@@ -84,6 +85,6 @@ module.exports = function(eleventyConfig) {
         // Use Nunjucks for HTML files, allowing Nunjucks templating within HTML
         htmlTemplateEngine: "njk",
         // Passthrough file extensions (these are copied as-is, useful if not handled by addPassthroughCopy)
-        passthroughFileCopy: true
+        passthroughFileCopy: true // Though addPassthroughCopy is generally preferred for clarity
     };
 };

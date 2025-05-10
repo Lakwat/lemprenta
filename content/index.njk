@@ -2,8 +2,8 @@
 # Frontmatter for the homepage. This MUST be valid YAML.
 # The file path comment has been moved inside the frontmatter or can be removed.
 # File: content/index.njk
-layout: layouts/base.njk
-title: "Inici - {{ metadata.title or 'El Meu Fantàstic Blog' }}" # Corrected: removed extra parentheses
+layout: base.njk # CORRECTED: Removed the redundant 'layouts/' prefix.
+title: "Inici - {{ metadata.title or 'El Meu Fantàstic Blog' }}"
 description: "Benvingut/da al meu fantàstic blog automatitzat, amb les darreres publicacions sobre diversos temes."
 permalink: /
 # Make sure this '---' is the end of the frontmatter block.
