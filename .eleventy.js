@@ -6,21 +6,22 @@ const { DateTime } = require("luxon");
 
 module.exports = function(eleventyConfig) {
 
+    // IMPORTANT: Set the pathPrefix for GitHub Pages deployment
+    // Replace "your-repo-name" with the actual name of your GitHub repository.
+    // For example, if your repo is github.com/user/my-cool-blog, set it to "/my-cool-blog/"
+    // If deploying to a custom domain or the root of username.github.io, you might not need this
+    // or can set it to "/"
+    eleventyConfig.setPathPrefix("/your-repo-name/"); // <--- ADD AND CONFIGURE THIS LINE
+
     // Passthrough copy for static assets
     // This copies your root 'assets/' directory and its contents to '_site/assets/'
-    eleventyConfig.addPassthroughCopy("assets"); // CORRECTED: Copies the root 'assets' folder
-
-    // If you have other static directories at the root, like an 'img' folder:
-    // eleventyConfig.addPassthroughCopy("img");
+    eleventyConfig.addPassthroughCopy("assets");
 
     // Date Formatting Filters using Luxon
-    // For displaying readable dates, e.g., "15 May 2023"
-    eleventyConfig.addFilter("readableDate", (dateObj, format = "dd LLLL yyyy", locale = "ca") => { // Changed format for Catalan month name
-        // Assuming dateObj is a JavaScript Date object (Eleventy typically provides this for frontmatter dates)
+    eleventyConfig.addFilter("readableDate", (dateObj, format = "dd LLLL yyyy", locale = "ca") => {
         return DateTime.fromJSDate(dateObj, { zone: 'utc' }).setLocale(locale).toFormat(format);
     });
 
-    // For formatting dates for the <time> datetime attribute, e.g., "2023-05-15"
     eleventyConfig.addFilter("htmlDateString", (dateObj) => {
         return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat('yyyy-LL-dd');
     });
@@ -29,14 +30,13 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
     // Posts collection
-    // Gathers all markdown files from 'content/posts/' and sorts them by date (newest first)
     eleventyConfig.addCollection("posts", function(collectionApi) {
         return collectionApi.getFilteredByGlob("content/posts/**/*.md").sort(function(a, b) {
             return b.date - a.date; // Sort by date, newest first
         });
     });
     
-    // Tags collection (from guide example, useful for creating tag pages)
+    // Tags collection
     eleventyConfig.addCollection("tagList", function(collectionApi) {
         let tagSet = new Set();
         collectionApi.getAll().forEach(function(item) {
@@ -47,7 +47,6 @@ module.exports = function(eleventyConfig) {
                 }
                 tags = tags.filter(item => {
                     switch(item) {
-                        // AllTags list are lowercase
                         case "all":
                         case "nav":
                         case "post":
@@ -64,27 +63,21 @@ module.exports = function(eleventyConfig) {
         return [...tagSet].sort();
     });
 
-
     // If you installed and want to use @11ty/eleventy-plugin-url (Step 68)
     // eleventyConfig.addPlugin(pluginUrl);
 
     // Eleventy configuration
     return {
-        // Define input and output directories
         dir: {
-            input: "content", // Where Eleventy looks for content files
-            includes: "../templates/_includes", // Relative to input dir, so effectively `project_root/templates/_includes`
-            layouts: "../templates/_includes/layouts", // Relative to input dir, so effectively `project_root/templates/_includes/layouts`
-            data: "../_data", // Relative to input dir, so effectively `project_root/_data`
-            output: "_site" // Where the generated site is placed
+            input: "content",
+            includes: "../templates/_includes",
+            layouts: "../templates/_includes/layouts",
+            data: "../_data",
+            output: "_site"
         },
-        // Specify which template languages to process
         templateFormats: ["md", "njk", "html"],
-        // Use Nunjucks for Markdown files, allowing Nunjucks templating within Markdown
         markdownTemplateEngine: "njk",
-        // Use Nunjucks for HTML files, allowing Nunjucks templating within HTML
         htmlTemplateEngine: "njk",
-        // Passthrough file extensions (these are copied as-is, useful if not handled by addPassthroughCopy)
-        passthroughFileCopy: true // Though addPassthroughCopy is generally preferred for clarity
+        passthroughFileCopy: true
     };
 };
