@@ -83,6 +83,6 @@ module.exports = function(eleventyConfig) {
         // For example, if your repo is github.com/user/my-cool-blog, set it to "/my-cool-blog/"
         // If deploying to a custom domain or the root of username.github.io, you might not need this
         // or can set it to "/"
-        pathPrefix: "/your-repo-name/" // <--- MOVED AND CONFIGURE THIS LINE
+        pathPrefix: "/lemprenta/" // <--- MOVED AND CONFIGURE THIS LINE
     };
 };
