@@ -6,13 +6,6 @@ const { DateTime } = require("luxon");
 
 module.exports = function(eleventyConfig) {
 
-    // IMPORTANT: Set the pathPrefix for GitHub Pages deployment
-    // Replace "your-repo-name" with the actual name of your GitHub repository.
-    // For example, if your repo is github.com/user/my-cool-blog, set it to "/my-cool-blog/"
-    // If deploying to a custom domain or the root of username.github.io, you might not need this
-    // or can set it to "/"
-    eleventyConfig.setPathPrefix("/your-repo-name/"); // <--- ADD AND CONFIGURE THIS LINE
-
     // Passthrough copy for static assets
     // This copies your root 'assets/' directory and its contents to '_site/assets/'
     eleventyConfig.addPassthroughCopy("assets");
@@ -68,6 +61,7 @@ module.exports = function(eleventyConfig) {
 
     // Eleventy configuration
     return {
+        // Define input and output directories
         dir: {
             input: "content",
             includes: "../templates/_includes",
@@ -75,9 +69,20 @@ module.exports = function(eleventyConfig) {
             data: "../_data",
             output: "_site"
         },
+        // Specify which template languages to process
         templateFormats: ["md", "njk", "html"],
+        // Use Nunjucks for Markdown files, allowing Nunjucks templating within Markdown
         markdownTemplateEngine: "njk",
+        // Use Nunjucks for HTML files, allowing Nunjucks templating within HTML
         htmlTemplateEngine: "njk",
-        passthroughFileCopy: true
+        // Passthrough file extensions (these are copied as-is, useful if not handled by addPassthroughCopy)
+        passthroughFileCopy: true,
+
+        // CORRECTED: Set the pathPrefix here
+        // Replace "your-repo-name" with the actual name of your GitHub repository.
+        // For example, if your repo is github.com/user/my-cool-blog, set it to "/my-cool-blog/"
+        // If deploying to a custom domain or the root of username.github.io, you might not need this
+        // or can set it to "/"
+        pathPrefix: "/your-repo-name/" // <--- MOVED AND CONFIGURE THIS LINE
     };
 };
