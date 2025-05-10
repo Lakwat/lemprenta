@@ -8,11 +8,11 @@
     <title>{{ title or metadata.title or "El Meu Blog Automatitzat" }}</title>
 
     {# 
-      Correctly link to the CSS file.
-      Assumes 'assets' is copied to the root of your output directory (_site).
-      eleventy.pathPrefix defaults to "/" if not set, which is usually correct.
+      Correctly link to the CSS file using the |url filter.
+      This ensures the pathPrefix from .eleventy.js is applied.
+      The path '/assets/css/style.css' is relative to the site's root.
     #}
-    <link rel="stylesheet" href="{{ eleventy.pathPrefix | default('/') }}assets/css/style.css">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | url }}">
 
     {# Include the partial for the AdSense script in the head #}
     {# Remember to uncomment this when AdSense is approved and configured #}
@@ -25,8 +25,8 @@
     <header> {# This <header> tag can now be styled for a full-width background #}
         <div class="container"> {# Inner div to constrain and center content #}
             <nav>
-                {# Ensure the home link correctly uses pathPrefix #}
-                <a href="{{ eleventy.pathPrefix | default('/') }}">Inici</a> {# User-facing text "Inici" (Home) remains Catalan #}
+                {# Ensure the home link correctly uses the |url filter #}
+                <a href="{{ '/' | url }}">Inici</a> {# User-facing text "Inici" (Home) remains Catalan #}
             </nav>
             {# Display site title and description from metadata, with fallbacks #}
             <h1>{{ metadata.title or "El Meu Blog Automatitzat" }}</h1>

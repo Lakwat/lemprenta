@@ -1,49 +1,32 @@
 {# File: templates/_includes/layouts/post.njk #}
-{% extends "layouts/base.njk" %}
+{% extends "base.njk" %} {# CORRECTED: Path to base layout #}
 
 {# This block will inject content into the 'head_extra' block in base.njk #}
 {% block head_extra %}
     {# Open Graph / Facebook Meta Tags #}
-    {# Use the post's title, or default to site title if post title is missing #}
     <meta property="og:title" content="{{ title or metadata.title }}">
     <meta property="og:description" content="{{ description or metadata.description }}">
     <meta property="og:type" content="article">
-    {#
-        Construct the full URL to the post.
-        Assumes 'metadata.url' is the base (e.g., https://yourdomain.com)
-        and 'page.url' already includes the pathPrefix (e.g., /yourPathPrefix/posts/my-post/).
-    #}
-    <meta property="og:url" content="{{ metadata.url }}{{ page.url }}">
-    {# Construct the full URL to the OG Image #}
+    {# Construct the full URL to the post using the |url filter for the path #}
+    <meta property="og:url" content="{{ metadata.url }}{{ page.url | url }}">
     {% set og_image_slug = title | slugify %}
-    {#
-        Assumes 'metadata.url' is the base
-        and 'eleventy.pathPrefix' is the path prefix if any.
-    #}
-    <meta property="og:image" content="{{ metadata.url }}{{ eleventy.pathPrefix }}/og/{{ og_image_slug }}.png">
+    {# Construct the full URL to the OG Image using the |url filter for the path #}
+    <meta property="og:image" content="{{ metadata.url }}{{ ('/og/' + og_image_slug + '.png') | url }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-
-    {# Optional: Site name for OG tags #}
     <meta property="og:site_name" content="{{ metadata.title }}">
-
-    {# Optional: Article specific tags for Facebook #}
     {% if date %}<meta property="article:published_time" content="{{ date | htmlDateString }}">{% endif %}
     {% if lastModified %}<meta property="article:modified_time" content="{{ lastModified | htmlDateString }}">{% endif %}
     {% for tag in tags %}<meta property="article:tag" content="{{ tag }}">{% endfor %}
-    {# <meta property="article:author" content="YOUR_FACEBOOK_PROFILE_URL"> #}
 
     {# Twitter Card Meta Tags #}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ title or metadata.title }}">
     <meta name="twitter:description" content="{{ description or metadata.description }}">
-    {# Construct the full URL to the Twitter image (same as og:image) #}
-    <meta name="twitter:image" content="{{ metadata.url }}{{ eleventy.pathPrefix }}/og/{{ og_image_slug }}.png">
-    {# <meta name="twitter:site" content="@YourTwitterHandle"> #}
-    {# <meta name="twitter:creator" content="@AuthorTwitterHandle"> #}
+    {# Construct the full URL to the Twitter image using the |url filter for the path #}
+    <meta name="twitter:image" content="{{ metadata.url }}{{ ('/og/' + og_image_slug + '.png') | url }}">
 
-    {# Other useful meta tags #}
-    <meta name="description" content="{{ description or metadata.description }}"> {# Standard description tag #}
+    <meta name="description" content="{{ description or metadata.description }}">
 {% endblock %}
 
 {# This is the main content block for the post #}
@@ -56,8 +39,8 @@
         {% if tags and tags.length %}
             | Etiquetes: {# User-facing "Tags:" remains Catalan #}
             {% for tag in tags %}
-                {# Construct tag link manually using eleventy.pathPrefix #}
-                <a href="{{ eleventy.pathPrefix }}/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+                {# Construct tag link using the |url filter #}
+                <a href="{{ ('/tags/' + (tag | slugify) + '/') | url }}" class="tag">{{ tag }}</a>{% if not loop.last %}, {% endif %}
             {% endfor %}
         {% endif %}
     </p>
